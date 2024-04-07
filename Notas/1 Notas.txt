@@ -1,0 +1,66 @@
+---- Notas ----
+
+---- master-python ----
+
+2-AprendiendoDjango
+3-ProyectoDjango
+4-examen_parcial
+5-desarrolloWebPython
+
+---- python-desarrolloweb-sistemasuni ----
+
+Clase02-AppWeb07-CrudEmpleadoConexionDjangoMySQL-HTMLSuccess
+
+
+
+---- Notas entorno de produccion ----
+
+---- Prompt en ChatGPT ----
+
+Actualmente tengo un proyecto en Django en windows server, he configurado lo siguiente para que pueda accederse fuera del servidor
+
+En el archivo settings.py
+ALLOWED_HOSTS = ['*', 'localhost', '127.0.0.1']
+
+y para arrancar el proyecto uso la consola (cmd) y ejecuto 
+python manage.py runserver 0.0.0.0:8000
+
+primero quiero confirmar que eso este bien, sin embargo quiero saber si hay otro metodo para levantar el proyecto, es decir tiene que estar siempre el cmd ejecutandose? me parece algo un poco raro, cualquiera podria entrar al cmd y cerrarlo por error, quisiera saber si ese es el metodo correcto de dejar levantado un proyecto o existe otro u otros metodos
+
+---- Ejecutar proyecto Django usando runserver (Acceder desde fuera del servidor) ----
+
+Ejecutar proyecto usando runserver
+    C:
+    cd C:\python\BiomontDjango
+    python manage.py runserver 0.0.0.0:8000
+
+---- Ejecutar proyecto Django usando waitress (Acceder desde fuera del servidor) ----
+
+Instalar Waitress
+    pip install waitress
+
+En el archivo settings.py
+    # Static files
+    # Ejecutar "python manage.py collectstatic" para recolectar los archivos estáticos en una carpeta centralizada llamada "static"
+    STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+Recolectar archivos estáticos
+    python manage.py collectstatic
+
+En el archivo urls.py
+    # Ruta para cargar archivos estáticos
+    if settings.DEBUG == True:
+        from django.conf.urls.static import static
+        urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+Ejecutar proyecto usando waitress
+    C:
+    cd C:\python\BiomontDjango
+    waitress-serve --listen=*:8000 BiomontDjango.wsgi:application
+
+Se puede crear un Archivo Batch (.bat)
+    C:
+    cd C:\python\BiomontDjango
+    waitress-serve --listen=*:8000 BiomontDjango.wsgi:application
+    :: start /B cmd /c waitress-serve --listen=*:8000 BiomontDjango.wsgi:application > logs.txt 2>&1
