@@ -20,7 +20,7 @@ class RegistroCantidad(models.Model):
         Si eliminas "managed = False" del archivo de migraciones generado y luego ejecutas "python manage.py sqlmigrate miapp 0001", podrás ver las consultas SQL generadas.
         """
         managed             = False
-        db_table            = 'tb_registro_cantidad_test'
+        db_table            = 'tb_registro_cantidad'  # tb_registro_cantidad_test
         verbose_name        = "Registro cantidad"
         verbose_name_plural = "Registro cantidades"
         ordering            = ['-id']
